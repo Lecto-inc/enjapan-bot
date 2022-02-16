@@ -1,0 +1,23 @@
+name: Schedule
+on:
+  schedule:
+    # UTC
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  shuffle:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.0
+      - name: Run
+        run: ruby ambi_check.rb
+        env:
+          AMBI_LOGIN_ID: ${{ secrets.AMBI_LOGIN_ID }}
+          AMBI_LOGIN_PW: ${{ secrets.AMBI_LOGIN_PW }}
+          AMBI_SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
+          AMBI_SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
