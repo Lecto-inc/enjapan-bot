@@ -91,7 +91,7 @@ client.chat_postMessage(
       }
     },
   ].concat(
-    interests.flat_map{|(title, rows)|
+    interests.group_by{|x| x[:jobname] }.flat_map{|(title, rows)|
       [
         {
           type: "header",
@@ -109,8 +109,8 @@ client.chat_postMessage(
             text: {
               type: "mrkdwn",
               text: [
-                "最終ログイン: #{user[:login]}",
                 user[:id],
+                "最終ログイン: #{user[:login]}",
                 user[:profile],
                 user.dig(:company, :name),
                 user.dig(:company, :job),
