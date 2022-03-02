@@ -36,6 +36,7 @@ def users(nodes)
       user: {
         login:   node.search(".status .offline")&.first&.text,
         profile: node.search(".data.basic .prof")&.first&.text,
+        name:    node.search(".data.user .userName")&.first&.text,
         id:      node.search(".data.basic .num")&.first&.text,
         company: {
           name: node.search(".data.user .companyData .name")&.first&.text,
@@ -105,6 +106,7 @@ def user_blocks(users)
             type: "mrkdwn",
             text: [
               user[:id],
+              user[:name],
               "最終ログイン: #{user[:login]}",
               user[:profile],
               user.dig(:company, :name),
@@ -113,7 +115,7 @@ def user_blocks(users)
               user.dig(:experiences, :change_job),
               user.dig(:experiences, :school),
               "<#{PROFILE_URL}#{user[:id]&.delete('No.')}|プロフィール>",
-            ].join("\n")
+            ].compact.join("\n")
           }
         }
       }
