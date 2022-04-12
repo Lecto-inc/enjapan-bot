@@ -22,7 +22,7 @@ jobs:
           AMBI_SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
           AMBI_SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
       - name: Run Mid
-        run: ruby md_check.rb
+        run: ruby mid_check.rb
         env:
           AMBI_LOGIN_ID: ${{ secrets.AMBI_LOGIN_ID }}
           AMBI_LOGIN_PW: ${{ secrets.AMBI_LOGIN_PW }}
