@@ -34,13 +34,13 @@ def users(nodes)
     {
       jobname: node.search(".jobname")&.first&.text || node.search(".subject")&.first&.text,
       user: {
-        login:   node.search(".status .offline")&.first&.text,
+        login:   node.search(".status")&.first&.text&.strip,
         profile: node.search(".data.basic .prof")&.first&.text,
         name:    node.search(".data.user .userName")&.first&.text,
         id:      node.search(".data.basic .num")&.first&.text,
         company: {
-          name: node.search(".data.user .companyData .name")&.first&.text,
-          job:  node.search(".data.user .companyData .sub")&.first&.text,
+          name: node.search(".data.user .companyData .name")&.first&.text&.strip,
+          job:  node.search(".data.user .companyData .sub")&.first&.text&.strip,
         },
         experiences: {
           school:     node.search(".data.profile .school")&.first&.text,
@@ -127,6 +127,13 @@ client.chat_postMessage(
   channel: SLACK_CHANNEL,
   blocks: [
     {
+      type: :header,
+      text: {
+        type: "plain_text",
+        text: "AMBI",
+      },
+    },
+    {
       type: :section,
       text: {
         type: "plain_text",
@@ -154,6 +161,13 @@ client.chat_postMessage(
 client.chat_postMessage(
   channel: SLACK_CHANNEL,
   blocks: [
+    {
+      type: :header,
+      text: {
+        type: "plain_text",
+        text: "AMBI",
+      },
+    },
     {
       type: :section,
       text: {
